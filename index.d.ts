@@ -112,6 +112,7 @@ declare module 'replicate' {
         version: string;
         input: object;
         webhook?: string;
+        wait?: boolean | { interval?: number; maxAttempts?: number };
         webhook_events_filter?: WebhookEventType[];
       }): Promise<Prediction>;
       get(prediction_id: string): Promise<Prediction>;
@@ -135,5 +136,19 @@ declare module 'replicate' {
       cancel(training_id: string): Promise<Training>;
       list(): Promise<Page<Training>>;
     };
+
+    deployments: {
+      predictions: {
+        create(
+          deployment_owner: string,
+          deployment_name: string,
+          options: {
+            input: object;
+            wait?: boolean | { interval?: number; maxAttempts?: number };
+            webhook?: string;
+            webhook_events_filter?: WebhookEventType[];
+          }): Promise<Prediction>;
+      }
+    }
   }
 }
