@@ -48,7 +48,7 @@ declare module 'replicate' {
     logs?: string;
     metrics?: {
       predict_time?: number;
-    }
+    };
     webhook?: string;
     webhook_events_filter?: WebhookEventType[];
     created_at: string;
@@ -59,12 +59,7 @@ declare module 'replicate' {
   export type Training = Prediction;
 
   export default class Replicate {
-    constructor(options: {
-      auth: string;
-      userAgent?: string;
-      baseUrl?: string;
-      fetch?: Function;
-    });
+    constructor(options: { auth: string; userAgent?: string; baseUrl?: string; fetch?: Function });
 
     auth: string;
     userAgent?: string;
@@ -81,7 +76,7 @@ declare module 'replicate' {
       }
     ): Promise<object>;
     request(route: string, parameters: any): Promise<any>;
-    paginate<T>(endpoint: () => Promise<Page<T>>): AsyncGenerator<[ T ]>;
+    paginate<T>(endpoint: () => Promise<Page<T>>): AsyncGenerator<[T]>;
     wait(
       prediction: Prediction,
       options: {
@@ -99,22 +94,12 @@ declare module 'replicate' {
       get(model_owner: string, model_name: string): Promise<Model>;
       versions: {
         list(model_owner: string, model_name: string): Promise<ModelVersion[]>;
-        get(
-          model_owner: string,
-          model_name: string,
-          version_id: string
-        ): Promise<ModelVersion>;
+        get(model_owner: string, model_name: string, version_id: string): Promise<ModelVersion>;
       };
     };
 
     predictions: {
-      create(options: {
-        version: string;
-        input: object;
-        webhook?: string;
-        wait?: boolean | { interval?: number; maxAttempts?: number };
-        webhook_events_filter?: WebhookEventType[];
-      }): Promise<Prediction>;
+      create(options: { version: string; input: object; webhook?: string; wait?: boolean | { interval?: number; maxAttempts?: number }; webhook_events_filter?: WebhookEventType[] }): Promise<Prediction>;
       get(prediction_id: string): Promise<Prediction>;
       cancel(prediction_id: string): Promise<Prediction>;
       list(): Promise<Page<Prediction>>;
